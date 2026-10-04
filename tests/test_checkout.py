@@ -31,8 +31,8 @@ def test_check_amount(login_as):
     step_two = checkout_page.fill_info(**CHECKOUT_INFO["valid"]).continue_to_overview()
 
     sub_total = step_two.get_sub_total()
-    tax = checkout_page.get_tax()
-    total = checkout_page.get_total()
+    tax = step_two.get_tax()
+    total = step_two.get_total()
 
     assert round(sub_total + tax, 2) == round(total, 2)
 

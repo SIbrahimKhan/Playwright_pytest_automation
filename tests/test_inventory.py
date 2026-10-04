@@ -44,15 +44,15 @@ def test_sort_by_name(login_as, sort_option, assertion):
 
 @pytest.mark.regression
 @pytest.mark.parametrize(
-    "sort_option, price",
+    "sort_option, reverse",
     [
-        ("lohi", True), ("hilo", False)
+        ("lohi", False), ("hilo", True)
     ],
-    ids= ["price-low-to-high", "price-high-to-low"]
+    ids=["price-low-to-high", "price-high-to-low"]
 )
-def test_sort_by_price(login_as, sort_option, price):
+def test_sort_by_price(login_as, sort_option, reverse):
     inventory_page = login_as("standard")
     inventory_page.sort(sort_option)
 
     prices = inventory_page.get_product_price()
-    assert price(prices) 
+    assert prices == sorted(prices, reverse=reverse)
